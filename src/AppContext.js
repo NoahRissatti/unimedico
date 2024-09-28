@@ -17,6 +17,7 @@ export function AppProvider({ children }) {
   const [pacientes, setPacientes] = useState(getFromLocalStorage('pacientes'));
   const [horarios, setHorarios] = useState(getFromLocalStorage('horarios'));
   const [consultas, setConsultas] = useState(getFromLocalStorage('consultas'));
+  const [exames, setExames] = useState(getFromLocalStorage('exames'));
 
   useEffect(() => {
     saveToLocalStorage('medicos', medicos);
@@ -34,8 +35,33 @@ export function AppProvider({ children }) {
     saveToLocalStorage('consultas', consultas);
   }, [consultas]);
 
+  useEffect(() => {
+    saveToLocalStorage('exames', exames);
+  }, [exames]);
+
+  const clearLocalStorage = () => {
+    localStorage.removeItem('medicos');
+    localStorage.removeItem('pacientes');
+    localStorage.removeItem('horarios');
+    localStorage.removeItem('consultas');
+    localStorage.removeItem('exames');
+  };
+
+  const verificarUsuario = (email, senha) => {
+    let medicoEncontrado = medicos.find(medico => medico.email === email && medico.senha === senha);
+    let pacienteEncontrado = pacientes.find(paciente => paciente.email === email && paciente.senha === senha);
+
+    if(medicoEncontrado)
+      return 'medico';
+    if(pacienteEncontrado)
+      return 'paciente';
+    if(email === 'admin' && senha === 'admin')
+      return 'admin';
+    else return 'invalido';
+};
+
   return (
-    <AppContext.Provider value={{ medicos, setMedicos, pacientes, setPacientes, horarios, setHorarios, consultas, setConsultas }}>
+    <AppContext.Provider value={{ medicos, setMedicos, pacientes, setPacientes, horarios, setHorarios, consultas, setConsultas, clearLocalStorage, verificarUsuario, exames, setExames }}>
       {children}
     </AppContext.Provider>
   );
