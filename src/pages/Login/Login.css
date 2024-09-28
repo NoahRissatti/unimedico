@@ -1,0 +1,36 @@
+.loginCard {
+    max-width: 400px;
+    max-height: 300px;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: lightgray;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.credenciais {
+    max-width: 80%;
+    margin: auto;
+}
+
+.loginButton {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    background-color: #28a745;
+    margin: auto;
+}
+
+.banner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #28a745;
+    margin-top: 10px;
+}
+
+.banner > p {
+    font-size: x-large;
+}
