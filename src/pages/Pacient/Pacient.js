@@ -7,6 +7,7 @@ export function Pacient() {
         <nav>
           <Link to="/pacient">Home</Link> |
           <Link to="/pacient/marcar-consulta">Marcar Consulta</Link> |
+          <Link to="/pacient/marcar-exame">Marcar Exame</Link>
         </nav>
       </div>
       <Outlet />

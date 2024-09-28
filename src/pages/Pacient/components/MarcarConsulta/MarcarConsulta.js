@@ -1,6 +1,6 @@
 import { useAppContext } from 'AppContext';
 import React, { useState } from 'react';
-import '../Pacient.css';
+import '../../Pacient.css';
 
 function MarcarConsulta() {
   const { medicos, setConsultas } = useAppContext();
