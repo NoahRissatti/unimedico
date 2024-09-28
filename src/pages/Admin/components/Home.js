@@ -2,7 +2,12 @@ import { useAppContext } from "AppContext";
 import "../Admin.css";
 
 export function Home() {
-    const { medicos, pacientes } = useAppContext();
+    const { medicos, pacientes, clearLocalStorage } = useAppContext();
+
+    const handleClearData = () => {
+        clearLocalStorage();
+        window.location.reload();
+    };
   
     return (
       <div className="home">
@@ -15,6 +20,9 @@ export function Home() {
           <div className="stat-card">
             <h2>Pacientes Cadastrados</h2>
             <p>{pacientes.length}</p>
+          </div>
+          <div>
+            <button onClick={handleClearData}>Limpar Dados</button>
           </div>
         </div>
       </div>
