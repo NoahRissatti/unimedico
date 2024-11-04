@@ -16,6 +16,23 @@ export function VerMedicos() {
             <div>
               <strong>Email:</strong> {medico.email}
             </div>
+            <div>
+              <strong>Endereço:</strong> {medico.endereco}, {medico.numero}
+            </div>
+            {medico.complemento && (
+              <div>
+                <strong>Complemento:</strong> {medico.complemento}
+              </div>
+            )}
+            <div>
+              <strong>Cidade:</strong> {medico.cidade}
+            </div>
+            <div>
+              <strong>Estado:</strong> {medico.estado}
+            </div>
+            <div>
+              <strong>CEP:</strong> {medico.cep}
+            </div>
           </li>
         ))}
       </ul>

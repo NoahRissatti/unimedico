@@ -16,6 +16,18 @@ export function VerPacientes() {
             <div>
               <strong>Email:</strong> {paciente.email}
             </div>
+            <div>
+              <strong>Endereço:</strong> {paciente.endereco}, {paciente.numero} {paciente.complemento && `- ${paciente.complemento}`}
+            </div>
+            <div>
+              <strong>Cidade:</strong> {paciente.cidade}
+            </div>
+            <div>
+              <strong>Estado:</strong> {paciente.estado}
+            </div>
+            <div>
+              <strong>CEP:</strong> {paciente.cep}
+            </div>
           </li>
         ))}
       </ul>

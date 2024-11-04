@@ -7,13 +7,48 @@ function CadastroMedico() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [cep, setCep] = useState('');
+  const [endereco, setEndereco] = useState('');
+  const [numero, setNumero] = useState('');        // Novo estado para o número
+  const [complemento, setComplemento] = useState('');  // Novo estado para o complemento
+  const [cidade, setCidade] = useState('');
+  const [estado, setEstado] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setMedicos([...medicos, { nome, email, senha }]);
+    setMedicos([...medicos, { nome, email, senha, cep, endereco, numero, complemento, cidade, estado }]);
     setNome('');
     setEmail('');
     setSenha('');
+    setCep('');
+    setEndereco('');
+    setNumero('');        // Limpar campo número
+    setComplemento('');    // Limpar campo complemento
+    setCidade('');
+    setEstado('');
+  };
+
+  const handleCepChange = async (e) => {
+    const cepValue = e.target.value.replace(/\D/g, '');
+    setCep(cepValue);
+
+    if (cepValue.length === 8) {
+      try {
+        const response = await fetch(`https://viacep.com.br/ws/${cepValue}/json/`);
+        const data = await response.json();
+
+        if (!data.erro) {
+          setEndereco(data.logradouro);
+          setCidade(data.localidade);
+          setEstado(data.uf);
+        } else {
+          alert("CEP não encontrado.");
+        }
+      } catch (error) {
+        console.error("Erro ao buscar o endereço:", error);
+        alert("Erro ao buscar o endereço. Tente novamente.");
+      }
+    }
   };
 
   return (
@@ -41,6 +76,50 @@ function CadastroMedico() {
           placeholder="Senha do médico"
           required
         />
+
+        <h3>Endereço</h3>
+        <input
+          type="text"
+          value={cep}
+          onChange={handleCepChange}
+          placeholder="CEP"
+          required
+        />
+        <input
+          type="text"
+          value={endereco}
+          onChange={(e) => setEndereco(e.target.value)}
+          placeholder="Endereço"
+          required
+        />
+        <input
+          type="text"
+          value={numero}
+          onChange={(e) => setNumero(e.target.value)}
+          placeholder="Número"
+          required
+        />
+        <input
+          type="text"
+          value={complemento}
+          onChange={(e) => setComplemento(e.target.value)}
+          placeholder="Complemento"
+        />
+        <input
+          type="text"
+          value={cidade}
+          onChange={(e) => setCidade(e.target.value)}
+          placeholder="Cidade"
+          required
+        />
+        <input
+          type="text"
+          value={estado}
+          onChange={(e) => setEstado(e.target.value)}
+          placeholder="Estado"
+          required
+        />
+
         <button type="submit">Cadastrar</button>
       </form>
     </div>
