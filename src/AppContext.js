@@ -13,6 +13,9 @@ const saveToLocalStorage = (key, data) => {
 };
 
 export function AppProvider({ children }) {
+
+  const [pexelsApiKey, setPexelsApiKey] = useState('iNPFCGgXqqQfEzpVT8dEchhPp4bItmLl1c9TLNSoL9oGEQtPmhJDwIzn');
+
   const [medicos, setMedicos] = useState(getFromLocalStorage('medicos'));
   const [pacientes, setPacientes] = useState(getFromLocalStorage('pacientes'));
   const [horarios, setHorarios] = useState(getFromLocalStorage('horarios'));
@@ -61,7 +64,7 @@ export function AppProvider({ children }) {
 };
 
   return (
-    <AppContext.Provider value={{ medicos, setMedicos, pacientes, setPacientes, horarios, setHorarios, consultas, setConsultas, clearLocalStorage, verificarUsuario, exames, setExames }}>
+    <AppContext.Provider value={{ medicos, setMedicos, pacientes, setPacientes, horarios, setHorarios, consultas, setConsultas, clearLocalStorage, verificarUsuario, exames, setExames, pexelsApiKey, setPexelsApiKey }}>
       {children}
     </AppContext.Provider>
   );
