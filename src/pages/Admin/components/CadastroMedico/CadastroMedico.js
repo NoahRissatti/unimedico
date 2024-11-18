@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./CadastroMedico.css";
 
 function CadastroMedico() {
+  const { pexelsApiKey } = useAppContext();
   const { medicos, setMedicos } = useAppContext();
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
@@ -14,18 +15,56 @@ function CadastroMedico() {
   const [cidade, setCidade] = useState('');
   const [estado, setEstado] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setMedicos([...medicos, { nome, email, senha, cep, endereco, numero, complemento, cidade, estado }]);
-    setNome('');
-    setEmail('');
-    setSenha('');
-    setCep('');
-    setEndereco('');
-    setNumero('');        // Limpar campo número
-    setComplemento('');    // Limpar campo complemento
-    setCidade('');
-    setEstado('');
+  
+    try {
+      const fotoPerfil = await getPhoto();
+  
+      // Atualiza a lista de médicos
+      setMedicos([
+        ...medicos,
+        { nome, email, senha, cep, endereco, numero, complemento, cidade, estado, foto: fotoPerfil },
+      ]);
+  
+      // Limpa os campos do formulário
+      setNome('');
+      setEmail('');
+      setSenha('');
+      setCep('');
+      setEndereco('');
+      setNumero('');
+      setComplemento('');
+      setCidade('');
+      setEstado('');
+    } catch (error) {
+      console.error("Erro ao salvar médico:", error);
+    }
+  };
+
+  const getPhoto = async () => {
+    const queries = ["doctor", "medical", "nurse", "surgeon"];
+    const randomQuery = queries[Math.floor(Math.random() * queries.length)];
+
+    // Página aleatória para obter imagens variadas
+    const page = Math.floor(Math.random() * 100) + 1; // Aleatorizando a página de resultados
+
+    try {
+      const response = await fetch(`https://api.pexels.com/v1/search?query=${randomQuery}&per_page=1&page=${page}`, {
+        headers: {
+          Authorization: pexelsApiKey,
+        },
+      });
+      const data = await response.json();
+
+      // Verifica se há fotos e define a URL
+      if (data.photos && data.photos.length > 0) {
+        return data.photos[0].src.medium;
+      }
+    } catch (error) {
+      console.error("Erro ao buscar imagem:", error);
+    }
+    return "";
   };
 
   const handleCepChange = async (e) => {
@@ -119,7 +158,6 @@ function CadastroMedico() {
           placeholder="Estado"
           required
         />
-
         <button type="submit">Cadastrar</button>
       </form>
     </div>
