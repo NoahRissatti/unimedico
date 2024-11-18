@@ -10,6 +10,10 @@ export function VerPacientes() {
       <ul>
         {pacientes.map((paciente, index) => (
           <li key={index}>
+            <div className="teste">
+              <img src={paciente.foto} alt="Foto Perfil">
+              </img>
+            </div>
             <div>
               <strong>Nome:</strong> {paciente.nome}
             </div>

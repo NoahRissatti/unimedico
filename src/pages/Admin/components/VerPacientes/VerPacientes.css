@@ -34,4 +34,10 @@
   strong {
     color: #28a745;
   }
+
+  .teste {
+    height: 120px;
+    margin-bottom: 25px;
+    display: flex;
+  }
   
